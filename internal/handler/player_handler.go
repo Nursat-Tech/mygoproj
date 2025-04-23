@@ -1,11 +1,12 @@
 package handler
 
 import (
+	"net/http"
+	"strconv"
+
 	"github.com/gin-gonic/gin"
 	"github.com/nursat/myproj/internal/models"
 	"github.com/nursat/myproj/internal/service"
-	"net/http"
-	"strconv"
 )
 
 type PlayerHandler struct {

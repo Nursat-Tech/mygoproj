@@ -9,10 +9,6 @@ type PlayerRepository struct {
 	db *gorm.DB
 }
 
-func NewPlayerRepository(db *gorm.DB) *PlayerRepository {
-	return &PlayerRepository{db: db}
-}
-
 func (r *PlayerRepository) CreatePlayer(player *models.Player) error {
 	return r.db.Create(player).Error
 }

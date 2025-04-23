@@ -2,16 +2,21 @@ package routes
 
 import (
 	"github.com/gin-gonic/gin"
+	"github.com/nursat/myproj/internal/db"
 	"github.com/nursat/myproj/internal/handler"
+	"github.com/nursat/myproj/internal/service"
 )
 
-func RegisterPlayerRoutes(r *gin.Engine, handler *handler.PlayerHandler) {
-	playerRoutes := r.Group("/players")
+func SetupRoutes(r *gin.Engine) {
+	playerService := service.NewPlayerService(db.DB)
+	playerHandler := handler.NewPlayerHandler(playerService)
+
+	players := r.Group("/players")
 	{
-		playerRoutes.POST("/", handler.CreatePlayer)
-		playerRoutes.GET("/", handler.GetPlayers)
-		playerRoutes.GET("/:id", handler.GetPlayerByID)
-		playerRoutes.PUT("/:id", handler.UpdatePlayer)
-		playerRoutes.DELETE("/:id", handler.DeletePlayer)
+		players.POST("/", playerHandler.CreatePlayer)
+		players.GET("/", playerHandler.GetPlayers)
+		players.GET("/:id", playerHandler.GetPlayerByID)
+		players.PUT("/:id", playerHandler.UpdatePlayer)
+		players.DELETE("/:id", playerHandler.DeletePlayer)
 	}
 }

@@ -2,33 +2,37 @@ package service
 
 import (
 	"github.com/nursat/myproj/internal/models"
-	"github.com/nursat/myproj/internal/repository"
+	"gorm.io/gorm"
 )
 
 type PlayerService struct {
-	repo *repository.PlayerRepository
+	db *gorm.DB
 }
 
-func NewPlayerService(repo *repository.PlayerRepository) *PlayerService {
-	return &PlayerService{repo: repo}
+func NewPlayerService(db *gorm.DB) *PlayerService {
+	return &PlayerService{db: db}
 }
 
 func (s *PlayerService) CreatePlayer(player *models.Player) error {
-	return s.repo.CreatePlayer(player)
+	return s.db.Create(player).Error
 }
 
 func (s *PlayerService) GetPlayers() ([]models.Player, error) {
-	return s.repo.GetPlayers()
+	var players []models.Player
+	err := s.db.Find(&players).Error
+	return players, err
 }
 
 func (s *PlayerService) GetPlayerByID(id uint) (*models.Player, error) {
-	return s.repo.GetPlayerByID(id)
+	var player models.Player
+	err := s.db.First(&player, id).Error
+	return &player, err
 }
 
 func (s *PlayerService) UpdatePlayer(player *models.Player) error {
-	return s.repo.UpdatePlayer(player)
+	return s.db.Save(player).Error
 }
 
 func (s *PlayerService) DeletePlayer(id uint) error {
-	return s.repo.DeletePlayer(id)
+	return s.db.Delete(&models.Player{}, id).Error
 }
