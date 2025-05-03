@@ -18,7 +18,7 @@ import (
 var DB *gorm.DB
 
 func InitDB() {
-	dbHost := "localhost"
+	dbHost := "db"
 	dbName := "testdb"
 	dbUser := "postgres"
 	dbPass := "51177477"

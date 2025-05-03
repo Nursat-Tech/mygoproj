@@ -22,15 +22,21 @@ func SetupRoutes(r *gin.Engine) {
 	protected := r.Group("api/v1")
 	protected.Use(middleware.AuthRequired())
 	{
-		protected.GET("/me", auth.Me) // Защищённый эндпоинт
+		protected.GET("/me", auth.Me)
 	}
 
-	players := r.Group("/players", middleware.AuthRequired())
+	admin := r.Group("/players")
+	admin.Use(middleware.AuthRequired(), middleware.RequireRole("admin"))
 	{
-		players.POST("/", playerHandler.CreatePlayer)
+		admin.POST("/", playerHandler.CreatePlayer)
+		admin.PUT("/:id", playerHandler.UpdatePlayer)
+		admin.DELETE("/:id", playerHandler.DeletePlayer)
+	}
+
+	players := r.Group("/players")
+	players.Use(middleware.AuthRequired())
+	{
 		players.GET("/", playerHandler.GetPlayers)
 		players.GET("/:id", playerHandler.GetPlayerByID)
-		players.PUT("/:id", playerHandler.UpdatePlayer)
-		players.DELETE("/:id", playerHandler.DeletePlayer)
 	}
 }
