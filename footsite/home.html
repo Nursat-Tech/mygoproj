@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Football Clubs</title>
+    <style>
+        body {
+            background: #f0f0f0;
+            font-family: Arial, sans-serif;
+            text-align: center;
+            padding: 20px;
+        }
+
+        h1 {
+            color: #cc0000;
+        }
+
+        .cards {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 30px;
+            justify-items: center;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .card {
+            color: white;
+            font-weight: bold;
+            border-radius: 15px;
+            padding: 40px 20px;
+            width: 100%;
+            max-width: 300px;
+            font-size: 1.2em;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+            transition: transform 0.2s ease;
+        }
+
+        .card:hover {
+            transform: scale(1.05);
+        }
+
+        .realmadrid {
+            background-color: white;
+            color: black;
+            border: 2px solid #ccc;
+        }
+
+        .barcelona {
+            background: linear-gradient(to right, #002b5e, #a50044);
+        }
+
+        .liverpool {
+            background-color: #c8102e;
+        }
+
+        .manchestercity {
+            background-color: #6cabdd;
+        }
+
+        .bayern {
+            background: linear-gradient(to right, white, #dc052d);
+            color: black;
+        }
+
+        .chelsea {
+            background: linear-gradient(to right, #001489, white);
+            color: black;
+        }
+
+        .manutd {
+            background: linear-gradient(to right, red, yellow);
+            color: black;
+        }
+
+        .psg {
+            background: linear-gradient(to right, blue, white, red);
+            color: black;
+        }
+
+        .dortmund {
+            background: linear-gradient(to right, yellow, black);
+            color: black;
+        }
+
+        .inter {
+            background: linear-gradient(to right, black, #00529F);
+        }
+
+        .milan {
+            background: linear-gradient(to right, red, black);
+        }
+
+        .marseille {
+            background: linear-gradient(to right, #009EE0, white, gold);
+            color: black;
+        }
+    </style>
+</head>
+<body>
+<h1>Welcome to the UEFA CHAMPIONS LEAGUE</h1>
+<div class="cards">
+    <div class="card barcelona">Barcelona</div>
+    <div class="card realmadrid">Real Madrid</div>
+    <div class="card liverpool">Liverpool</div>
+    <div class="card manchestercity">Manchester City</div>
+    <div class="card bayern">Bayern Munich</div>
+    <div class="card chelsea">Chelsea</div>
+    <div class="card manutd">Manchester United</div>
+    <div class="card psg">PSG</div>
+    <div class="card dortmund">Borussia Dortmund</div>
+    <div class="card inter">Inter Milan</div>
+    <div class="card milan">AC Milan</div>
+    <div class="card marseille">Olympique de Marseille</div>
+</div>
+</body>
+</html>

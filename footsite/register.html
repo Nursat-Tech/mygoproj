@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <title>Register</title>
+    <style>
+        body {
+            background: linear-gradient(to right, #cc0000, #003366);
+            font-family: Arial, sans-serif;
+            color: white;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        .container {
+            background-color: rgba(0,0,0,0.6);
+            padding: 30px;
+            border-radius: 15px;
+            width: 320px;
+            text-align: center;
+            box-shadow: 0 0 15px rgba(0, 51, 102, 0.7);
+        }
+
+        h1 {
+            margin-bottom: 25px;
+            font-weight: normal;
+            font-size: 28px;
+        }
+
+        input[type="text"], input[type="password"] {
+            width: 90%;
+            padding: 12px;
+            margin: 12px 0;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+        }
+
+        button[type="submit"] {
+            background-color: #003366;
+            color: white;
+            border: none;
+            padding: 12px 20px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 16px;
+            width: 90%;
+            margin-top: 15px;
+            font-weight: bold;
+            transition: background-color 0.3s ease;
+        }
+
+        button[type="submit"]:hover {
+            background-color: #001f4d;
+        }
+
+        .link-button {
+            background: none;
+            border: none;
+            color: #00aced;
+            cursor: pointer;
+            text-decoration: underline;
+            font-size: 14px;
+            margin-top: 20px;
+            display: inline-block;
+        }
+
+        .link-button:hover {
+            color: #0084b4;
+        }
+
+        #message {
+            margin-top: 12px;
+            color: yellow;
+            min-height: 18px;
+            font-size: 14px;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <h1>Register</h1>
+    <form id="register-form">
+        <input type="text" id="reg-username" placeholder="Username" required />
+        <input type="password" id="reg-password" placeholder="Password" required />
+        <button type="submit">Register</button>
+    </form>
+    <button class="link-button" id="go-login">Already have an account? Login</button>
+    <div id="message"></div>
+</div>
+
+<script>
+    document.getElementById('go-login').addEventListener('click', () => {
+        window.location.href = '/login';
+    });
+
+    document.getElementById('register-form').addEventListener('submit', async e => {
+        e.preventDefault();
+
+        const username = document.getElementById('reg-username').value.trim();
+        const password = document.getElementById('reg-password').value.trim();
+        const messageElem = document.getElementById('message');
+        messageElem.textContent = '';
+
+        try {
+            const res = await fetch('/api/v1/auth/register', {
+                method: 'POST',
+                headers: {'Content-Type': 'application/json'},
+                body: JSON.stringify({username, password})
+            });
+
+            const data = await res.json();
+
+            if (res.ok) {
+                messageElem.style.color = 'lightgreen';
+                messageElem.textContent = data.message || 'Registration successful! You can now login.';
+                setTimeout(() => {
+                    window.location.href = '/login';
+                }, 1500);
+            } else {
+                messageElem.style.color = 'yellow';
+                messageElem.textContent = data.error || 'Registration failed. Please try again.';
+            }
+        } catch (err) {
+            messageElem.style.color = 'yellow';
+            messageElem.textContent = 'Network error. Please try again.';
+        }
+    });
+</script>
+</body>
+</html>

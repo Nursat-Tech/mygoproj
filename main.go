@@ -8,7 +8,24 @@ import (
 
 func main() {
 	db.InitDB()
+
 	r := gin.Default()
-	routes.SetupRoutes(r)
+
+	r.Static("/static", "./footsite/static")
+
+	r.GET("/", func(c *gin.Context) {
+		c.File("./footsite/home.html")
+	})
+
+	r.GET("/login", func(c *gin.Context) {
+		c.File("./footsite/login.html")
+	})
+
+	r.GET("/register", func(c *gin.Context) {
+		c.File("./footsite/register.html")
+	})
+
+	routes.SetupRoutes(r) // ✅ Дұрыс
+
 	r.Run(":8080")
 }
